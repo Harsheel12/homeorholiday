@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: HomeOrHolidayBackend
+  datasource:
+    url: jdbc:postgresql://localhost:5432/HomeOrHoliday
+    username: HomeOrHoliday
+    password: "123456"
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  graphql:
+    graphiql:
+      enabled: true
