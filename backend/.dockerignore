@@ -1,0 +1,25 @@
+target/
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE files and folders
+.idea/
+*.iml
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Git files and folders
+.git
+.gitignore
+
+# Logs and temporary files
+*.log
+*.tmp
+tmp/
+
+# Environment files (if you have any local secrets)
+.env
