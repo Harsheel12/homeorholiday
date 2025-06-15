@@ -1,6 +1,6 @@
 package com.homeorholiday.backend.service;
 
-import com.homeorholiday.backend.models.User;
+import com.homeorholiday.backend.model.User;
 import com.homeorholiday.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
