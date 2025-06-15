@@ -1,4 +1,4 @@
-package com.homeorholiday.backend.models;
+package com.homeorholiday.backend.model;
 
 import jakarta.persistence.*;
 
