@@ -1,17 +1,27 @@
 type Query {
-    users: [User!]!
-    user(id: ID!): User
+    users: [UserResponse!]!
+    user(id: ID!): UserResponse
+    userByEmail(email: String!): UserResponse
+    isEmailExisting(email: String!): Boolean!
 }
 
 type Mutation {
-    createUser(input: CreateUserInput!): User!
+    createUser(input: CreateUserInput!): UserResponse!
 }
 
-type User {
+type UserResponse {
     id: ID!
-    name: String!
+    firstName: String!
+    lastName: String!
+    email: String!
+    fullName: String!
+    createdAt: String!
+    updatedAt: String!
 }
 
 input CreateUserInput {
-    name: String!
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
 }
