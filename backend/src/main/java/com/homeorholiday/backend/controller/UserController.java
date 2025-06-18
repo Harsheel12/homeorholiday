@@ -32,6 +32,6 @@ public class UserController {
     // Mutation to create a new user
     @MutationMapping
     public User createUser(@Argument CreateUserInput input) {
-        return userService.createUser(input.getName());
+        return userService.createUser(input.getFirstName());
     }
 }
