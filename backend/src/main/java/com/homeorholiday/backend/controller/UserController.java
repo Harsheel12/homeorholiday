@@ -1,6 +1,7 @@
 package com.homeorholiday.backend.controller;
 
 import com.homeorholiday.backend.dto.CreateUserInput;
+import com.homeorholiday.backend.dto.UserResponse;
 import com.homeorholiday.backend.model.User;
 import com.homeorholiday.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +20,31 @@ public class UserController {
 
     // Query to get all users
     @QueryMapping
-    public List<User> users() {
+    public List<UserResponse> users() {
         return userService.getAllUsers();
     }
 
     // Query to get user by ID
     @QueryMapping
-    public User user(@Argument Long id) {
+    public UserResponse user(@Argument Long id) {
         return userService.getUserById(id);
+    }
+
+    // Query to get user by email
+    @QueryMapping
+    public UserResponse userByEmail(@Argument String email) {
+        return userService.getUserByEmail(email);
+    }
+
+    // Query to check if email already exists
+    @QueryMapping
+    public boolean isEmailExisting(@Argument String email) {
+        return userService.isEmailExisting(email);
     }
 
     // Mutation to create a new user
     @MutationMapping
-    public User createUser(@Argument CreateUserInput input) {
-        return userService.createUser(input.getFirstName());
+    public UserResponse createUser(@Argument CreateUserInput input) {
+        return userService.createUser(input);
     }
 }
