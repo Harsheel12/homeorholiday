@@ -4,6 +4,7 @@ import com.homeorholiday.backend.dto.CreateUserInput;
 import com.homeorholiday.backend.dto.UserResponse;
 import com.homeorholiday.backend.model.User;
 import com.homeorholiday.backend.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -44,7 +45,7 @@ public class UserController {
 
     // Mutation to create a new user
     @MutationMapping
-    public UserResponse createUser(@Argument CreateUserInput input) {
+    public UserResponse createUser(@Valid @Argument CreateUserInput input) {
         return userService.createUser(input);
     }
 }
