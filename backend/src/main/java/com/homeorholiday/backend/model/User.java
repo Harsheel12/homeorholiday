@@ -32,9 +32,6 @@ public class User {
     @NotBlank(message = "Password is required")
     private String password;
 
-    @Column(name = "full_name")
-    private String fullName;
-
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -97,10 +94,6 @@ public class User {
     // Utility method to get full name
     public String getFullName() {
         return firstName + " " + lastName;
-    }
-
-    public void setFullName(String name) {
-        this.fullName = name;
     }
 
     public LocalDateTime getCreatedAt() {
