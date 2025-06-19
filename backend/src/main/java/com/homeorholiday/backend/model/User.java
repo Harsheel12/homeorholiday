@@ -15,11 +15,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "first_name", nullable = false)
     @NotBlank(message = "First name is required")
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(name = "last_name", nullable = false)
     @NotBlank(message = "Last name is required")
     private String lastName;
 
@@ -32,16 +32,16 @@ public class User {
     @NotBlank(message = "Password is required")
     private String password;
 
+    @Column(name = "full_name")
+    private String fullName;
+
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(nullable = false)
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
-    @Column(nullable = false)
-    private String name;
 
     // Constructors
     public User() {}
@@ -94,12 +94,13 @@ public class User {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    // Utility method to get full name
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String name) {
+        this.fullName = name;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -116,10 +117,5 @@ public class User {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    // Utility method to get full name
-    public String getFullName() {
-        return firstName + " " + lastName;
     }
 }
