@@ -27,7 +27,7 @@ public class UserService {
     public UserResponse createUser(CreateUserInput input) {
 
         // Check if email already exists
-        if (userRepository.isEmailExisting(input.getEmail())) {
+        if (userRepository.existsByEmail(input.getEmail())) {
             throw new RuntimeException("Email already exists: " + input.getEmail());
         }
 
