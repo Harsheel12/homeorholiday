@@ -5,6 +5,7 @@ import com.homeorholiday.backend.dto.UserResponse;
 import com.homeorholiday.backend.model.User;
 import com.homeorholiday.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<UserResponse> getAllUsers() {
         return userRepository.findAll()
@@ -36,7 +40,7 @@ public class UserService {
         user.setFirstName(input.getFirstName());
         user.setLastName(input.getLastName());
         user.setEmail(input.getEmail());
-        user.setPassword(input.getPassword());
+        user.setPassword(passwordEncoder.encode(input.getPassword()));
 
         // Save and return response
         User savedUser = userRepository.save(user);
