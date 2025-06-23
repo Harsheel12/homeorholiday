@@ -28,26 +28,6 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public UserResponse createUser(RegisterUserRequest input) {
-
-        // Check if email already exists
-        if (userRepository.existsByEmail(input.getEmail())) {
-            throw new RuntimeException("Email already exists: " + input.getEmail());
-        }
-
-        // Create new user entity
-        User user = new User();
-        user.setFirstName(input.getFirstName());
-        user.setLastName(input.getLastName());
-        user.setEmail(input.getEmail());
-        user.setPassword(passwordEncoder.encode(input.getPassword()));
-
-        // Save and return response
-        User savedUser = userRepository.save(user);
-
-        return new UserResponse(savedUser);
-    }
-
     public UserResponse getUserById(Long id) {
 
         Optional<User> user = userRepository.findById(id);
