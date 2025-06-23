@@ -1,4 +1,4 @@
-package com.homeorholiday.backend.dto;
+package com.homeorholiday.backend.dto.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateUserInput {
+public class RegisterUserRequest {
     @NotBlank(message = "First name is required")
     @Size(max = 50, message = "First name must be less than 50 characters")
     private String firstName;

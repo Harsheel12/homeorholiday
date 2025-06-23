@@ -1,6 +1,6 @@
 package com.homeorholiday.backend.service;
 
-import com.homeorholiday.backend.dto.CreateUserInput;
+import com.homeorholiday.backend.dto.auth.RegisterUserRequest;
 import com.homeorholiday.backend.dto.UserResponse;
 import com.homeorholiday.backend.model.User;
 import com.homeorholiday.backend.repository.UserRepository;
@@ -28,7 +28,7 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public UserResponse createUser(CreateUserInput input) {
+    public UserResponse createUser(RegisterUserRequest input) {
 
         // Check if email already exists
         if (userRepository.existsByEmail(input.getEmail())) {

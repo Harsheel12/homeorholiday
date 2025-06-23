@@ -1,8 +1,7 @@
 package com.homeorholiday.backend.controller;
 
-import com.homeorholiday.backend.dto.CreateUserInput;
+import com.homeorholiday.backend.dto.auth.RegisterUserRequest;
 import com.homeorholiday.backend.dto.UserResponse;
-import com.homeorholiday.backend.model.User;
 import com.homeorholiday.backend.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +44,7 @@ public class UserController {
 
     // Mutation to create a new user
     @MutationMapping
-    public UserResponse createUser(@Valid @Argument CreateUserInput input) {
+    public UserResponse createUser(@Valid @Argument RegisterUserRequest input) {
         return userService.createUser(input);
     }
 }
