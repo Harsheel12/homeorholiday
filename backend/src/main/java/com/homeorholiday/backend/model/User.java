@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString(exclude = {"password"})
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
