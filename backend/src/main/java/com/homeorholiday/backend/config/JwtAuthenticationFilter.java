@@ -57,7 +57,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
-                if (jwtService.isTokenValid(jwt)) {
+                if (jwtService.isTokenValid(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
@@ -80,8 +80,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      * Check if the endpoint is public and doesn't require authentication
      */
     private boolean isPublicEndpoint(String path) {
-        return path.equals("/graphql") && isAuthenticationQuery(path) ||
-                path.startsWith("/graphiql") ||
+        return path.startsWith("/graphiql") ||
                 path.startsWith("/error");
     }
 
