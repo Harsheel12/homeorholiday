@@ -41,10 +41,4 @@ public class UserController {
     public boolean isEmailExisting(@Argument String email) {
         return userService.isEmailExisting(email);
     }
-
-    // Mutation to create a new user
-    @MutationMapping
-    public UserResponse createUser(@Valid @Argument RegisterUserRequest input) {
-        return userService.createUser(input);
-    }
 }
