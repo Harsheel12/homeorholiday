@@ -96,7 +96,7 @@ public class AuthenticationService {
     }
 
     @Transactional(readOnly = true)
-    public AuthResponse refreshToken(RefreshTokenRequest request) {
+    public AuthResponse refreshAccessToken(RefreshTokenRequest request) {
         try {
             final String refreshToken = request.getRefreshToken();
             final String userEmail = jwtService.extractUsername(refreshToken);

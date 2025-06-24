@@ -44,8 +44,8 @@ public class AuthenticationController {
      * Refresh access token
      */
     @MutationMapping
-    public AuthResponse refreshToken(@Valid @Argument RefreshTokenRequest input) {
-        return authService.refreshToken(input);
+    public AuthResponse refreshAccessToken(@Valid @Argument RefreshTokenRequest input) {
+        return authService.refreshAccessToken(input);
     }
 
     /**

@@ -14,7 +14,7 @@ type Mutation {
     # Authentication Mutations
     registerUser(input: RegisterUserRequest!): AuthResponse!
     loginUser(input: LoginUserRequest!): AuthResponse!
-    refreshToken(input: RefreshTokenRequest!): AuthResponse!
+    refreshAccessToken(input: RefreshTokenRequest!): AuthResponse!
 }
 
 # Authentication Types
