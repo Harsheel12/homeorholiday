@@ -50,7 +50,6 @@ public class AuthenticationController {
 
     /**
      * Validate current access token
-     * Protected endpoint - requires valid JWT token
      */
     @QueryMapping
     @PreAuthorize("isAuthenticated()")
@@ -62,7 +61,6 @@ public class AuthenticationController {
 
     /**
      * Get current user profile
-     * Protected endpoint - requires valid JWT token
      */
     @QueryMapping
     @PreAuthorize("isAuthenticated()")
