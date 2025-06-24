@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -18,25 +19,36 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // Query to get all users
+    /**
+     * Get all users
+     */
     @QueryMapping
+    @PreAuthorize("isAuthenticated()")
     public List<UserResponse> users() {
         return userService.getAllUsers();
     }
 
-    // Query to get user by ID
+    /**
+     * Get a user by id
+     */
     @QueryMapping
+    @PreAuthorize("isAuthenticated()")
     public UserResponse user(@Argument Long id) {
         return userService.getUserById(id);
     }
 
-    // Query to get user by email
+    /**
+     * Get a user by email
+     */
     @QueryMapping
+    @PreAuthorize("isAuthenticated()")
     public UserResponse userByEmail(@Argument String email) {
         return userService.getUserByEmail(email);
     }
 
-    // Query to check if email already exists
+    /**
+     * Check if email already exists
+     */
     @QueryMapping
     public boolean isEmailExisting(@Argument String email) {
         return userService.isEmailExisting(email);
