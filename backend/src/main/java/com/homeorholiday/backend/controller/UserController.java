@@ -1,51 +1,57 @@
 package com.homeorholiday.backend.controller;
 
-import com.homeorholiday.backend.dto.CreateUserInput;
+import com.homeorholiday.backend.dto.auth.RegisterUserRequest;
 import com.homeorholiday.backend.dto.UserResponse;
-import com.homeorholiday.backend.model.User;
 import com.homeorholiday.backend.service.UserService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    // Query to get all users
+    /**
+     * Get all users
+     */
     @QueryMapping
+    @PreAuthorize("isAuthenticated()")
     public List<UserResponse> users() {
         return userService.getAllUsers();
     }
 
-    // Query to get user by ID
+    /**
+     * Get a user by id
+     */
     @QueryMapping
+    @PreAuthorize("isAuthenticated()")
     public UserResponse user(@Argument Long id) {
         return userService.getUserById(id);
     }
 
-    // Query to get user by email
+    /**
+     * Get a user by email
+     */
     @QueryMapping
+    @PreAuthorize("isAuthenticated()")
     public UserResponse userByEmail(@Argument String email) {
         return userService.getUserByEmail(email);
     }
 
-    // Query to check if email already exists
+    /**
+     * Check if email already exists
+     */
     @QueryMapping
     public boolean isEmailExisting(@Argument String email) {
         return userService.isEmailExisting(email);
-    }
-
-    // Mutation to create a new user
-    @MutationMapping
-    public UserResponse createUser(@Valid @Argument CreateUserInput input) {
-        return userService.createUser(input);
     }
 }

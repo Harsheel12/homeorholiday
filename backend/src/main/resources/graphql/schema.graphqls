@@ -1,14 +1,48 @@
 type Query {
+    # User Queries
     users: [UserResponse!]!
     user(id: ID!): UserResponse
     userByEmail(email: String!): UserResponse
     isEmailExisting(email: String!): Boolean!
+
+    # Authentication Queries
+    validateToken: Boolean!
+    me: UserResponse!
 }
 
 type Mutation {
-    createUser(input: CreateUserInput!): UserResponse!
+    # Authentication Mutations
+    registerUser(input: RegisterUserRequest!): AuthResponse!
+    loginUser(input: LoginUserRequest!): AuthResponse!
+    refreshAccessToken(input: RefreshTokenRequest!): AuthResponse!
 }
 
+# Authentication Types
+input RegisterUserRequest {
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+}
+
+input LoginUserRequest {
+    email: String!
+    password: String!
+}
+
+type AuthResponse {
+    accessToken: String!
+    refreshToken: String!
+    tokenType: String!
+    expiresIn: Int!
+    user: UserResponse!
+}
+
+input RefreshTokenRequest {
+    refreshToken: String!
+}
+
+# User Types
 type UserResponse {
     id: ID!
     firstName: String!
@@ -17,11 +51,4 @@ type UserResponse {
     fullName: String!
     createdAt: String!
     updatedAt: String!
-}
-
-input CreateUserInput {
-    firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
 }

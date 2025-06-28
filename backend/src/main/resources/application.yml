@@ -2,9 +2,9 @@ spring:
   application:
     name: HomeOrHolidayBackend
   datasource:
-    url: jdbc:postgresql://localhost:5432/HomeOrHoliday
-    username: HomeOrHoliday
-    password: "123456"
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -16,7 +16,15 @@ spring:
       enabled: true
   security:
     user:
-      name: admin
-      password: admin123
+      name: ${SPRING_SECURITY_USER_NAME}
+      password: ${SPRING_SECURITY_USER_PASSWORD}
       roles:
         ADMIN
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    # Access token default expiration: 24 hours (in milliseconds)
+    expiration: ${JWT_EXPIRATION:86400000}
+    # Refresh token default expiration: 7 days (in milliseconds)
+    refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
