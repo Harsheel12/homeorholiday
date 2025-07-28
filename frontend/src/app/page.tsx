@@ -1,6 +1,6 @@
 "use client";
 
-import LoginForm from "@/components/custom/LoginForm";
+import LoginForm from "@/components/custom/LoginForm/LoginForm";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
