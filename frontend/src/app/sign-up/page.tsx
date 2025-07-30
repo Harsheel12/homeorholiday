@@ -1,4 +1,4 @@
-import SignUpForm from "@/components/custom/SignUpForm";
+import SignUpForm from "@/components/custom/SignUpForm/SignUpForm";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
