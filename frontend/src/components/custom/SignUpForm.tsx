@@ -13,6 +13,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "@apollo/client";
+import { REGISTER_USER } from "@/lib/mutations";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const formSchema = z.object({
   firstName: z
@@ -36,7 +40,24 @@ export const formSchema = z.object({
     .regex(/[0-9]/, { message: "Password must include at least one number." }),
 });
 
+interface RegisterResponse {
+  registerUser: {
+    accessToken: string;
+    refreshToken: string;
+    tokenType: string;
+    user: {
+      firstName: string;
+      lastName: string;
+      email: string;
+    };
+  };
+}
+
 export default function SignUpForm() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,8 +68,56 @@ export default function SignUpForm() {
     },
   });
 
+  const { reset, setValue } = form;
+
+  // GraphQL Mutation to register the user
+  const [registerUser] = useMutation<RegisterResponse>(REGISTER_USER, {
+    onCompleted: (data) => {
+      // Store tokens in localStorage
+      localStorage.setItem("accessToken", data.registerUser.accessToken);
+      localStorage.setItem("refreshToken", data.registerUser.refreshToken);
+      localStorage.setItem("user", JSON.stringify(data.registerUser.user));
+
+      // Reset form
+      reset();
+
+      // Redirect to home page
+      router.push("/home");
+    },
+    onError: (error) => {
+      console.error("Failed to register user. Please try again.", error);
+
+      // Extract the actual error message
+      const errorMessage =
+        error.graphQLErrors?.[0]?.message ||
+        error.message ||
+        "Registration failed. Please try again.";
+
+      setLoginError(errorMessage);
+    },
+  });
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Form submitted with values:", values);
+    setIsLoading(true);
+    setLoginError(null);
+
+    try {
+      await registerUser({
+        variables: {
+          input: {
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email,
+            password: values.password,
+          },
+        },
+      });
+    } catch (error: any) {
+      console.error("Registration failed. Please try again.", error);
+      setLoginError("Registration failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
