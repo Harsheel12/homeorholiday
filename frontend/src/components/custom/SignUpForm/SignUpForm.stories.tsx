@@ -20,7 +20,6 @@ const meta: Meta<typeof SignUpForm> = {
 };
 
 export default meta;
-
 type Story = StoryObj<typeof SignUpForm>;
 
 export const Default: Story = {};
